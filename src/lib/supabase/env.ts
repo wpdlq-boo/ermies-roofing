@@ -6,8 +6,12 @@ export const supabaseUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "")
   .trim()
   .replace(/\/+$/, "")
   .replace(/\/rest\/v1$/, "");
+// The legacy name NEXT_PUBLIC_SUPABASE_ANON_KEY (used by Supabase's Vercel
+// integration) works too.
 export const supabasePublishableKey = (
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? ""
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??
+  ""
 ).trim();
 
 export const isSupabaseConfigured = Boolean(supabaseUrl && supabasePublishableKey);
