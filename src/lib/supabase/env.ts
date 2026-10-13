@@ -1,8 +1,14 @@
 // Public Supabase settings. Both values are safe to expose to the browser;
 // Row Level Security decides what each visitor can read or change.
-export const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
-export const supabasePublishableKey =
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? "";
+// Accepts the URL with a trailing slash or a pasted "/rest/v1" suffix, both of
+// which make Supabase reject requests with "Invalid path specified".
+export const supabaseUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "")
+  .trim()
+  .replace(/\/+$/, "")
+  .replace(/\/rest\/v1$/, "");
+export const supabasePublishableKey = (
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? ""
+).trim();
 
 export const isSupabaseConfigured = Boolean(supabaseUrl && supabasePublishableKey);
 
